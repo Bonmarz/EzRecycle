@@ -1,90 +1,157 @@
-import { Leaf, Info, MapPin } from "lucide-react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function EzRecycleHome() {
+/**
+ * EzRecycle – Homepage Component
+ * Now features a persistent hamburger menu in the top‑right that opens a slide‑out drawer.
+ * Tailwind CSS for styling and framer‑motion for animations.
+ */
+export default function Home() {
+  const [open, setOpen] = useState(false);
+
+  const navLinks = [
+    { name: "Home", href: "#" },
+    { name: "Quiz & Planner", href: "#quiz" },
+    { name: "Resources", href: "#resources" },
+    { name: "About", href: "#about" },
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-green-50 to-green-100 text-gray-800">
+    <div className="font-sans text-gray-100 bg-green-900 min-h-screen">
+      {/* Header */}
+      <header className="relative z-40 flex items-center justify-between px-6 py-4 bg-green-800 shadow-lg">
+        <h1 className="text-2xl font-bold tracking-wider">EzRecycle</h1>
 
-      {/* Main */}
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <section className="py-20">
-          <div className="max-w-5xl mx-auto px-6 text-center">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-4xl md:text-5xl font-extrabold leading-tight mb-6"
-            >
-              Recycling made <span className="text-green-600">simple</span> and rewarding
-            </motion.h2>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8">
-              EzRecycle guides you with clear steps, local resources, and personalized planning to make eco‑friendly habits stick.
-            </p>
-            <Link
-              to="/guide"
-              className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-2xl shadow"
-            >
-              Take the Quick Quiz
-            </Link>
-          </div>
-        </section>
+        {/* Hamburger (always visible) */}
+        <button
+          onClick={() => setOpen(true)}
+          aria-label="Open Navigation"
+          className="p-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-lime-300"
+        >
+          <FiMenu size={28} />
+        </button>
+      </header>
 
-        {/* Features */}
-        <section id="features" className="bg-white py-16">
-          <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10">
-            <FeatureCard
-              icon={<Info className="w-8 h-8 text-green-600" />}
-              title="Know What to Recycle"
-              description="Learn exactly which materials your city accepts and how to prepare them."
+      {/* Slide‑out drawer */}
+      <AnimatePresence>
+        {open && (
+          <>
+            {/* Overlay */}
+            <motion.div
+              key="overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black" 
+              onClick={() => setOpen(false)}
             />
-            <FeatureCard
-              icon={<MapPin className="w-8 h-8 text-green-600" />}
-              title="Find Drop‑Off Points"
-              description="Quickly locate recycling centers, donation spots, and swap events near you."
-            />
-            <FeatureCard
-              icon={<Leaf className="w-8 h-8 text-green-600" />}
-              title="Build Sustainable Habits"
-              description="Set reminders and track progress with our Planner to stay on the green path."
-            />
-          </div>
-        </section>
 
-        {/* Resources CTA */}
-        <section id="resources" className="py-16">
-          <div className="max-w-5xl mx-auto px-6 text-center">
-            <h3 className="text-3xl font-bold mb-4">Helpful Resources</h3>
-            <p className="max-w-2xl mx-auto mb-8">
-              Dive deeper with guides on local regulations, upcycling ideas, and downloadable sorting charts.
-            </p>
-            <Link
-              to="/resources"
-              className="inline-block bg-green-50 hover:bg-green-100 text-green-700 font-semibold py-2 px-4 rounded-2xl border border-green-600"
+            {/* Drawer */}
+            <motion.aside
+              key="drawer"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.3 }}
+              className="fixed top-0 right-0 h-full w-64 bg-green-800 shadow-xl flex flex-col pt-6 px-6"
             >
-              Explore Resources
-            </Link>
-          </div>
-        </section>
-      </main>
+              <button
+                aria-label="Close Navigation"
+                className="self-end mb-6"
+                onClick={() => setOpen(false)}
+              >
+                <FiX size={28} />
+              </button>
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="py-2 text-lg hover:text-lime-300 transition-colors"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ))}
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
 
+      {/* HERO */}
+      <section className="flex flex-col items-center justify-center text-center py-24 px-6 bg-green-700 bg-[url('/recycle-hero.jpg')] bg-cover bg-center bg-blend-multiply">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-4xl md:text-5xl font-extrabold mb-6"
+        >
+          Recycle Smarter, <span className="text-lime-300">Live Greener</span>
+        </motion.h2>
+        <p className="max-w-2xl text-lg md:text-xl mb-8">
+          EzRecycle guides you through everyday recycling with interactive tools, local resources, and personalized planning.
+        </p>
+        <a
+          href="#quiz"
+          className="px-8 py-3 rounded-2xl bg-lime-400 text-green-900 font-semibold hover:bg-lime-300 transition-colors shadow-lg"
+        >
+          Take the Recycling Quiz
+        </a>
+      </section>
+
+      {/* Feature cards */}
+      <section className="grid md:grid-cols-3 gap-8 px-6 py-20 bg-green-900">
+        {[
+          {
+            title: "What Can I Recycle?",
+            desc: "Browse our searchable database of common household items and learn how to dispose of them responsibly.",
+            icon: "♻️",
+          },
+          {
+            title: "Find Drop-Offs Near You",
+            desc: "Locate recycling centers, e-waste events, and donation hubs in your community.",
+            icon: "📍",
+          },
+          {
+            title: "Build Sustainable Habits",
+            desc: "Set weekly goals and reminders with our planner to make recycling second nature.",
+            icon: "📅",
+          },
+        ].map((card) => (
+          <motion.div
+            key={card.title}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-green-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center"
+          >
+            <span className="text-5xl mb-4">{card.icon}</span>
+            <h3 className="text-xl font-bold mb-2">{card.title}</h3>
+            <p className="text-sm text-gray-200">{card.desc}</p>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* About section */}
+      <section id="about" className="px-6 py-20 flex flex-col md:flex-row items-center gap-8 bg-green-800">
+        <img
+          src="/about-recycle.jpg"
+          alt="People recycling"
+          className="w-full md:w-1/2 rounded-2xl shadow-lg"
+        />
+        <div className="md:w-1/2">
+          <h3 className="text-3xl font-bold mb-4">About EzRecycle</h3>
+          <p className="text-lg leading-relaxed">
+            Born from a passion for sustainability, EzRecycle aims to simplify recycling for everyone. Our mission is to empower communities with the knowledge and tools they need to reduce waste and protect the planet.
+          </p>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="px-6 py-8 bg-green-700 text-center text-sm">
+        <p>© {new Date().getFullYear()} EzRecycle. Built with love for a cleaner Earth.</p>
+      </footer>
     </div>
-  );
-}
-
-function FeatureCard({ icon, title, description }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-      className="bg-green-50 rounded-2xl shadow p-6 flex flex-col items-center text-center"
-    >
-      {icon}
-      <h4 className="font-bold text-lg mt-4 mb-2">{title}</h4>
-      <p className="text-sm">{description}</p>
-    </motion.div>
   );
 }
