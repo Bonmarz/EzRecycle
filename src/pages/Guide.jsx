@@ -81,7 +81,8 @@ function Guide() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
+        setCurrentStep(5);
         if (!formData.itemName.trim()) {
             setError('Please provide the item name');
             return;
@@ -153,12 +154,12 @@ function Guide() {
                             <div className="mb-8">
                                 <div className="flex justify-between text-sm text-gray-600 mb-2">
                                     <span>Step {currentStep} of 4</span>
-                                    <span>{Math.round((currentStep / 4) * 100)}% Complete</span>
+                                    <span>{Math.round(((currentStep - 1) / 4) * 100)}% Complete</span>
                                 </div>
                                 <div className="w-full bg-gray-200 rounded-full h-2">
                                     <div 
                                         className="bg-green-600 h-2 rounded-full transition-all duration-300" 
-                                        style={{ width: `${(currentStep / 4) * 100}%` }}
+                                        style={{ width: `${((currentStep - 1) / 4) * 100}%` }}
                                     ></div>
                                 </div>
                             </div>
@@ -353,7 +354,7 @@ function Guide() {
                             )}
 
                             {/* Step 4: Additional Information */}
-                            {currentStep === 4 && (
+                            {currentStep >= 4 && (
                                 <div>
                                     <h2 className="text-2xl font-bold text-green-700 mb-6">Step 4: Additional Information</h2>
                                     
@@ -465,7 +466,7 @@ function Guide() {
                                     )}
                                 </div>
                                 <div><strong>Where to take it:</strong> {recyclingGuidance.instructions.location}</div>
-                                {recyclingGuidance.instructions.timing && (
+                                {recyclingGuidance.instructions.timing &&  recyclingGuidance.instructions.timing.length > 0 && (
                                     <div><strong>Timing:</strong> {recyclingGuidance.instructions.timing}</div>
                                 )}
                             </div>

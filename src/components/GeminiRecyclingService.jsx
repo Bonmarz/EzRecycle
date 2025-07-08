@@ -48,7 +48,7 @@ Based on this detailed information, please provide a response in the following J
       "each string is a separate step"
     ],
     "location": "specific guidance on where to take it",
-    "timing": "any timing considerations (e.g., collection days, seasonal programs)"
+    "timing": "any timing considerations if applicable (e.g., collection days, seasonal programs)"
   },
   "warnings": [
     "important safety warnings",
