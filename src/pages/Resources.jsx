@@ -126,7 +126,48 @@ function Resources() {
             );
           })}
         </div>
-
+        {/* Tips for Recycling */}  
+        <div className="bg-white rounded-2xl shadow-lg p-6 my-16">
+          <div className="flex items-center mb-4">
+            <span className="text-2xl mr-2">💡</span>
+            <h3 className="text-2xl font-bold text-green-700">Tips for Proper Recycling</h3>
+          </div>
+          <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
+            <a
+              href="https://ecomyths.org/myth-you-must-rinse-all-containers-before-recycling-them/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center bg-green-50 hover:bg-green-100 text-green-700 font-medium px-4 py-2 rounded-full border border-green-200 transition"
+            >
+              Rinse containers before recycling to avoid contamination
+            </a>
+            <a
+              href="https://www.swaco.org/FAQ.aspx?QID=74"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center bg-green-50 hover:bg-green-100 text-green-700 font-medium px-4 py-2 rounded-full border border-green-200 transition"
+            >
+              Flatten cardboard boxes to save space
+            </a>
+            <a
+              href="https://recyclerightny.recyclist.co/guide/plastic-caps/?embeddedguide=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center bg-green-50 hover:bg-green-100 text-green-700 font-medium px-4 py-2 rounded-full border border-green-200 transition"
+            >
+              Check local rules about bottle caps
+            </a>
+            <a
+              href="https://sogreenpack.com/post/can-greasy-pizza-boxes-be-recycled-or-composted-a-comprehensive-guide/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center bg-green-50 hover:bg-green-100 text-green-700 font-medium px-4 py-2 rounded-full border border-green-200 transition"
+            >
+              Don't recycle greasy pizza boxes
+            </a>
+          </div>
+        </div>
+        
         {/* Community + NYC Recycling Info */}
         <div className="mt-24 space-y-16">
           <div className="bg-white rounded-2xl shadow-lg p-6">
