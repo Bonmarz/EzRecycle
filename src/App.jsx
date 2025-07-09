@@ -2,12 +2,14 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import Home from './pages/Home'
 import Resources from './pages/Resources' 
 import Guide from './pages/Guide'
+import About from './pages/About';
 import { Leaf } from "lucide-react";
 
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Resources', href: '/resources' },
-  { name: 'Guide', href: '/guide' }
+  { name: 'Guide', href: '/guide' },
+  { name: 'About', href: '/about' },
 ];
 
 function Header() {
@@ -78,6 +80,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/resources" element={<Resources />} />
             <Route path="/guide" element={<Guide />} />
+            <Route path="/about" element={<About />} /> 
             <Route path="*" element={<h1>404 Not Found</h1>} />
           </Routes>
         </main>
